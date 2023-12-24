@@ -107,6 +107,39 @@ id INT AUTO_INCREMENT,
    PRIMARY KEY(id)
 );
 ```
+## Primary Key and Default
+
+```sql
+CREATE TABLE users(
+id INT PRIMARY KEY,
+   first_name VARCHAR(100),
+   last_name VARCHAR(100),
+   email VARCHAR(50),
+   password VARCHAR(20),
+   location VARCHAR(100),
+   dept VARCHAR(100),
+   is_admin TINYINT(1) default 0,
+   register_date DATETIME,
+   PRIMARY KEY(id)
+);
+```
+
+## Not null
+
+```sql
+CREATE TABLE users(
+id INT PRIMARY KEY,
+   first_name VARCHAR(100) Not null,
+   last_name VARCHAR(100),
+   email VARCHAR(50),
+   password VARCHAR(20),
+   location VARCHAR(100),
+   dept VARCHAR(100),
+   is_admin TINYINT(1),
+   register_date DATETIME,
+   PRIMARY KEY(id)
+);
+```
 
 ## Delete / Drop Table
 
@@ -124,6 +157,12 @@ SHOW TABLES;
 
 ```sql
 INSERT INTO users (first_name, last_name, email, password, location, dept, is_admin, register_date) values ('Brad', 'Traversy', 'brad@gmail.com', '123456','Massachusetts', 'development', 1, now());
+```
+
+## Insert Row / Record
+
+```sql
+INSERT INTO users values ('Brad', 'Traversy', 'brad@gmail.com', '123456','Massachusetts', 'development', 1, now());
 ```
 
 ## Insert Multiple Rows
@@ -164,13 +203,23 @@ UPDATE users SET email = 'freddy@gmail.com' WHERE id = 2;
 ## Add New Column
 
 ```sql
-ALTER TABLE users ADD age VARCHAR(3);
+ALTER TABLE users ADD (age VARCHAR(3));
+ALTER TABLE users ADD (Test int default 100);
 ```
 
 ## Modify Column
 
 ```sql
 ALTER TABLE users MODIFY COLUMN age INT(3);
+ALTER TABLE users Modify change age AGE varchar(3);
+```
+
+
+## Delete Column
+
+```sql
+ALTER TABLE users MODIFY COLUMN age INT(3);
+ALTER TABLE users DROP column age;
 ```
 
 ## Order By (Sort)
@@ -313,6 +362,10 @@ ORDER BY posts.title;
 ## Aggregate Functions
 
 ```sql
+-- Will Give the total number of rows in the table with the NULL value included
+SELECT Count(*) from Table_Name;
+SELECT COUNT(*) form table_Name where column_Name is not null;
+
 SELECT COUNT(id) FROM users;
 SELECT MAX(age) FROM users;
 SELECT MIN(age) FROM users;
@@ -328,4 +381,29 @@ SELECT age, COUNT(age) FROM users GROUP BY age;
 SELECT age, COUNT(age) FROM users WHERE age > 20 GROUP BY age;
 SELECT age, COUNT(age) FROM users GROUP BY age HAVING count(age) >=2;
 
+```
+
+## LOAD DATA FROM THE SOURCE
+
+```sql
+SOURCE DESKTOP/.../FileName.sql;
+```
+
+## Distinct And Limit
+
+```sql
+SELECT * FROM TABLE_NAME LIMIT 100;
+SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+```
+
+## COUNT OF ANYTHING SPECIFIC IN THE COLUMN
+
+```sql
+select count(*) as product_count from products where productLine = "Motorcycles";
+```
+
+## UPDATE TABLE
+```sql
+Update Table_Name set Column_Name = 'Column_value';
+update table_name set Column_Name = 'Column_Value' where condition;
 ```
